@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <title>Капча</title>
+  <meta name="author" content="Eryomenko Maksim">
+  <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color:#FFF8DC">
+<div class="btn-group">
+<input value="Главная" onclick="location.href='../../../'" type="button" class="btn btn-default btn-danger" />
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        1 курс
+        <span class="caret"></span>
+      </button>
+    <ul class="dropdown-menu">
+      <li><a href="../../../1kurs/mixer.html"> Микшер</a></li>
+      <li><a href="../../../1kurs/calc.html">Калькулятор</a></li>
+      <li><a href="../../../1kurs/sort.html">Сортировка</a></li>
+      <li><a href="../../../1kurs/sortjs.html">Сортировка JS</a></li>
+      <li><a href="../../../1kurs/sravnenie.html">Сравнительная сортировка</a></li>
+      <li><a href="../../../1kurs/calc3.html">Калькулятор V3</a></li>
+    </ul>
+</div> 
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        2 курс
+        <span class="caret"></span>
+      </button>
+    <ul class="dropdown-menu">
+      <li><a href="../tree.html"> Дерево</a></li>
+	     <li><a href="../objcalc.html"> Объктный кальулятор</a></li>
+	     <li><a href="../captcha/captcha.html"> Капча</a></li>
+	     <li><a href="../md.html"> Хэширование</a></li>
+      <li><a href="../calccheck.html"> Проверка калькулятора</a></li>
+      <li><a href="../matrix.html"> Матрица</a></li>	
+      <li><a href="../../math/chislMetod.html"> Численые методы интегирования</a></li>
+  	   <li><a href="../../math/variablestep.html"> Численые методы интегрирования(Шаг со смещением)</a></li>
+    </ul>
+</div>
+</div>
+<div class="container"> 
+  <div class="col-sm-3">
+ <h1>Введите число с картинки</h1>
+     <img id="image" src="img.php"><br>
+<input id="n"><br>
+<button id=check>&#1055;&#1086;&#1087;&#1088;&#1086;&#1073;&#1086;&#1074;&#1072;&#1090;&#1100; &#1077;&#1097;&#1105;</button>
+  </div>
+</div>
+<script>
+$(function(){
+	$("input").on("keyup", function(){
+	  $.get("check.php", {
+		  "N" : $("#n").val()
+		  
+	  }, function(result){
+		  $("h1").html(result);
+		  
+	  });	
+	});
+	$("#check").on("click", function(){
+		$("#image").hide("slow").attr("src", "img.php?text="+Math.random()).show("slow");
+                document.getElementById('n').value="";
+        });
+	
+});
+</script>
+<script src="get?js=boff"></script>
+<p>&copy;2015-2016 Ерёменко Максим</p>
+ </body>
+</html>

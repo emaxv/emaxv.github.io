@@ -1,0 +1,106 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Объектный калькулятор</title> 
+<meta charset="utf-8">
+<meta name="author" content="Maksim Eryomenko">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="import" href="../k2.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script>
+<br> 
+<div class="container"> 
+  <div class="col-sm-3">  
+<input class='form-control' id="oper1"  placeholder="Первое число"><br> 
+<input class='form-control' id="oper2"  placeholder="Второе число"><br>
+<select id="action" > 
+<option value="0">Выберите действие</option> 
+<option value="1">+</option> 
+<option value="2">-</option> 
+<option value="3">*</option> 
+<option value="4">/</option>
+</select> 
+    <h3>Ответ: <input class='form-control' id=ot ></h3>
+<button class="btn btn-success" onClick="simpleCalc.calculate()" >Вычислить</button>  
+  </div>
+</div> 
+<script> 
+var Calculator = function() { 
+var operand1; 
+var operand2; 
+var operate; 
+var result;
+this.getOperand1 = function() { 
+return operand1; 
+}; 
+this.getOperand2 = function() { 
+return operand2; 
+}; 
+this.getAction = function() { 
+return actionInt; 
+}; 
+this.setOperand1 = function() { 
+operand1 = document.getElementById("oper1").value;  
+}; 
+
+this.setOperand2 = function() { 
+operand2 = document.getElementById("oper2").value; 
+}; 
+this.setAction = function() { 
+var k = document.getElementById("action").options.selectedIndex 
+operate = parseInt(document.getElementById("action").options[k].value); 
+}; 
+this.addition = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1+operand2); 
+}; 
+this.subtraction = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1-operand2); 
+}; 
+this.multiplication = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1*operand2); 
+}; 
+this.division = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return (operand1/operand2); 
+}; 
+this.operation = function() { 
+var act;
+switch (operate) { 
+case 1: act = this.addition(); 
+break; 
+case 2: act = this.subtraction(); 
+break; 
+case 3: act = this.multiplication(); 
+break; 
+case 4: act = this.division(); 
+break; 
+}; 
+return act; 
+}; 
+this.calculate = function() { 
+this.setOperand1(); 
+this.setOperand2(); 
+this.setAction(); 
+this.result = simpleCalc.operation() ;  
+document.querySelector("#ot").value=this.result; 
+}; 
+}; 
+var simpleCalc = new Calculator(); 
+</script>
+<p>&copy;2015-2016 Ерёменко Максим</p> 
+</body> 
+</html>

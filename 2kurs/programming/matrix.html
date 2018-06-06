@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title></title>
+  <meta name="author" content="Maksim Eryomenko">
+  <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://maxer.890m.com/tree.js"></script> 
+<link rel="import" href="../k2.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script>
+   <h3>Заполните матрицу:</h3>
+   <input class="o1" id="1"><input class="o2" id="2"><input class="o3" id="3"><br>
+   <input class="o4" id="4"><input class="o5" id="5"><input class="o6" id="6"><br>
+   <input class="o7" id="7"><input class="o8" id="8"><input class="o9" id="9"><br> <br>
+   <div id="Arr"></div>
+   <button class= btn-primary id=sozdat>Запомнить значения</button><br>
+   <h3>На какое число умножить матрицу?</h3>
+   <input class=o10 id="t"><br>
+   <button class= btn-primary id=umnozh>Умножить</button>
+   <div id="mestoumn"></div>
+ </body>
+    <script>
+      $(function(){ 
+    document.querySelector(".o1").value=$.query.get('a');
+    document.querySelector(".o2").value=$.query.get('b');
+    document.querySelector(".o3").value=$.query.get('c');
+    document.querySelector(".o4").value=$.query.get('d');
+    document.querySelector(".o5").value=$.query.get('e');
+    document.querySelector(".o6").value=$.query.get('f');
+    document.querySelector(".o7").value=$.query.get('g');
+    document.querySelector(".o8").value=$.query.get('h');
+    document.querySelector(".o9").value=$.query.get('i');
+    document.querySelector(".o10").value=$.query.get('k');
+      });
+      var znach = 1;
+     var arr = new Array();
+     $("#sozdat").on("click",function (){
+  		for(var i=0; i<3; i++){          
+      		arr[i] = new Array();
+    		 for(var j=0; j<3; j++){
+      		  arr[i][j] = document.getElementById(znach).value; 
+               znach+=1;
+    		};
+  		};
+  		return arr;
+	}); 
+     $("#umnozh").on("click",function() {
+    	var k =document.getElementById('t').value;
+        var s = "<table  class='table table-bordered'>"
+        var znach = 1;
+        for(var i=0; i<3; i++){
+    		 for(var j=0; j<3; j++){
+      		  arr[i][j] = arr[i][j] * k;
+               s +="<td><input value=' "  + arr[i][j] +   " ' id="+ znach +"></td>"; 
+               znach+=1; 
+    			};
+              s+="</tr>";
+       		}; 
+         s +="</table>";
+       $("#mestoumn").append(s)
+       document.title="["+"["+(arr.join(']'+','+'['))+"]"+"]";
+    		});	
+   </script>
+</html> 

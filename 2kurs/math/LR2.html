@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title></title>
+	<meta name="author" content="Eryomenko Maksim">
+	<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		&#1042;&#1074;&#1077;&#1076;&#1080;&#1090;&#1077; &#1082;&#1086;&#1083;-&#1074;&#1086; &#1093;:
+		<input type="text" id="n" value="4" size="20">
+		<button class= btn-primary id=fill>&#1042;&#1074;&#1077;&#1089;&#1090;&#1080; &#1079;&#1085;&#1072;&#1095;&#1077;&#1085;&#1080;&#1103; </button>
+		</br></br>
+		<p id="array"></p>
+		</br>
+		<button class= btn-primary id=gaussposledov>&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; &#1087;&#1086;&#1089;&#1083;&#1077;&#1076;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1080;&#1089;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1103; &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081; </button></br></br>
+		<button class= btn-primary id=gaussoptim>&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; &#1086;&#1087;&#1090;&#1080;&#1084;&#1072;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1080;&#1089;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1103; &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081;</button></br></br>
+		<button class= btn-primary id=gaussjordan>&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; - &#1046;&#1086;&#1088;&#1076;&#1072;&#1085;&#1072;  &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081; </button></br></br>
+
+		<p id="answer"></p>
+	</body>
+	<script>
+		var A=[];
+		var x=[];
+		var y=[];
+		$("#fill").on("click",function (){
+			var n=parseInt(document.getElementById("n").value);
+			document.getElementById("array").innerHTML ="";
+			for(var i=0; i<=n-1; i++){
+					for(var j=0; j<=n; j++){
+						if (j==n) {document.getElementById("array").innerHTML+= ' = '}
+						document.getElementById("array").innerHTML+='  <input value="" id="'+i+'.'+j+'">';
+						if(j!=n){ document.getElementById("array").innerHTML+= '  x'+(j+1)+' + '}
+				};
+				document.getElementById("array").innerHTML+='</br>'
+			};
+		})
+
+		function get(n){			
+			for(var i=0; i<=n-1; i++){
+					A[i] = [];
+					for(var j=0; j<=n; j++){
+						var c=i+'.'+j;
+						A[i][j] = document.getElementById(c).value;
+						
+				};
+			};
+		}
+		$("#gaussposledov").on("click",function (){
+			var n=parseInt(document.getElementById("n").value);
+			get(n);
+			newline(n);
+			order(n);
+			gaussposledov(n);
+			console.log(JSON.stringify(A));
+			console.log(JSON.stringify(y));
+			console.log(JSON.stringify(x));
+			document.getElementById("answer").innerHTML="";
+			for (var i=0;i<=n-1;i++){
+				document.getElementById("answer").innerHTML+="x"+(i+1)+" = "+x[i]+'</br>';
+			}
+			
+		})
+		$("#gaussoptim").on("click",function (){
+			var n=parseInt(document.getElementById("n").value);
+			get(n);
+			newline(n);
+			order(n);
+			gaussoptim(n);
+			console.log(JSON.stringify(A));
+			console.log(JSON.stringify(y));
+			console.log(JSON.stringify(x));
+			document.getElementById("answer").innerHTML="";
+			for (var i=0;i<=n-1;i++){
+				document.getElementById("answer").innerHTML+="x"+(i+1)+" = "+x[i]+'</br>';
+			}
+			
+		})
+		$("#gaussjordan").on("click",function (){
+			var n=parseInt(document.getElementById("n").value);
+			get(n);
+			newline(n);
+			order(n);
+			gaussjordan(n);
+			console.log(JSON.stringify(A));
+			console.log(JSON.stringify(y));
+			console.log(JSON.stringify(x));
+			document.getElementById("answer").innerHTML="";
+			for (var i=0;i<=n-1;i++){
+				document.getElementById("answer").innerHTML+="x"+(i+1)+" = "+x[i]+'</br>';
+			}
+			
+		})
+		function line(s,m) {
+			for (var j=0;j<=n;j++){
+				var v=A[s][j];
+				A[s][j]=A[m][j];
+				A[m][j]=v;
+			}   	
+		}
+		function column(s,m) {
+			for (var i=0;i<=n;i++){
+				var v=A[i][s];
+				A[i][s]=A[i][m];
+				A[i][m]=v;
+			} 
+		}
+		function newline(n) {	
+			A[n]=[]	;
+				for (var j=0;j<=n-1;j++){
+					A[n][j]=j+1;
+				}
+		} 
+		function order(n) {
+			for (var k=0;k<=n-1;k++){
+				var max=A[k][k];
+				maxi=k;
+				maxj=k;
+				for (var i=k;i<=n-1;i++){
+					for(var j=k;j<=n-1;j++){
+						if (A[i][j]>max) {
+							max=A[i][j];
+							maxi=i;
+							maxj=j;
+						}
+					}
+				}
+				if (maxi==k && maxj==k) {}
+				else {
+					line(k,maxi);
+					column(k,maxj);
+				}
+			}	
+		}
+		//&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; &#1087;&#1086;&#1089;&#1083;&#1077;&#1076;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1080;&#1089;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1103; &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081;
+		function gaussposledov(n){
+			for (var k=0;k<=n-2;k++){
+				for (var i=k;i<=n-1;i++) {
+					if (i==k){
+						for (var j=n;j>=0;j--) {
+							{A[i][j]=A[i][j]/A[i][i]} 
+						}		
+					} 
+			
+					else {
+						var b=A[i][k];
+						for (var j=0;j<=n;j++) {
+							A[i][j]=A[i][j]-b*A[k][j];
+						}
+					}
+				}	
+			}
+			for (var i=n-1;i>=0;i--) {
+				var b=0;
+				for( var j=n-1;j>i;j--){
+					b+=y[j]*A[i][j];
+				}
+				y[i]=(A[i][n]-b)/A[i][i];
+			}
+			for (var j=0;j<=n-1;j++){
+				var s=A[n][j]-1;
+				x[s]=y[j];
+			}
+		}	
+		//&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; &#1086;&#1087;&#1090;&#1080;&#1084;&#1072;&#1083;&#1100;&#1085;&#1086;&#1075;&#1086; &#1080;&#1089;&#1082;&#1083;&#1102;&#1095;&#1077;&#1085;&#1080;&#1103; &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081;
+		function gaussoptim(n) {
+			for (var k=0;k<=n-2;k++){
+				for (var i=k;i<=n-1;i++) {
+					if (i!=k){
+						var b=A[i][k]/A[k][k];
+						for (var j=0;j<=n;j++) {
+						A[i][j]=A[i][j]-b*A[k][j];
+						}
+					} 
+				}	
+			}	
+			for (var i=n-1;i>=0;i--) {
+				var b=0;
+				for( var j=n-1;j>i;j--){
+					b+=y[j]*A[i][j];
+				}
+				y[i]=(A[i][n]-b)/A[i][i];
+			}
+			for (var j=0;j<=n-1;j++){
+				var s=A[n][j]-1;
+				x[s]=y[j];
+			}
+		}
+		//&#1084;&#1077;&#1090;&#1086;&#1076; &#1043;&#1072;&#1091;&#1089;&#1089;&#1072; - &#1046;&#1086;&#1088;&#1076;&#1072;&#1085;&#1072;  &#1076;&#1083;&#1103; &#1084;&#1072;&#1090;&#1088;&#1080;&#1094;&#1099; &#1082;&#1086;&#1101;&#1092;&#1092;&#1080;&#1094;&#1080;&#1077;&#1085;&#1090;&#1086;&#1074; &#1089;&#1080;&#1089;&#1090;&#1077;&#1084;&#1099; &#1083;&#1080;&#1085;&#1077;&#1081;&#1085;&#1099;&#1093; &#1091;&#1088;&#1072;&#1074;&#1085;&#1077;&#1085;&#1080;&#1081;
+		function gaussjordan(n) {
+			for (var k=0;k<=n-1;k++){
+				for (var j=n;j>=0;j--) {
+					{A[k][j]=A[k][j]/A[k][k]} 
+				}
+				for (var i=0;i<=n-1;i++) {
+					if (i==k){} 
+					else {
+						var b=A[i][k];
+						for (var j=0;j<=n;j++) {
+							A[i][j]=A[i][j]-b*A[k][j];
+						}
+					}
+				
+				}	
+			}
+			for (var i=0;i<=n-1;i++) {
+				y[i]=A[i][n];
+			}
+			for (var j=0;j<=n-1;j++){
+				var s=A[n][j]-1;
+				x[s]=y[j];
+			}
+		}
+	</script>
+</html>

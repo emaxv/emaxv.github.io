@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Бинарное дерево</title>
+  <meta name="author" content="Maksim Eryomenko">
+    <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="tree.js"></script>
+<link rel="import" href="../k2.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script><br>
+   <div class="container">
+ <h3>Ответ:<output id="result"></output></h3>
+   </div>
+    <script> 
+        function main() {
+            var tree = {};
+            var h = $.query.get('height')||6;
+            var root = $.query.get('root')||5;
+            tree[root] = {}; 
+            if (h > 1) {
+                tree[root] = raiseTree(root, h-1, left, right)
+            } 
+            return tree; 
+        }; 
+        function left(root) {
+            lev = root * root;
+            return lev;
+        };
+        function right(root) {
+            prav = root - 2;
+            return prav;
+        };
+        function raiseTree(root, h, left, right) {
+            var subTree = {};
+            var rekh = h;
+            var rekroot = root;
+            if (rekh > 0) {
+                var ll = left(rekroot);
+                var rl = right(rekroot);
+                subTree[ll] = raiseTree(ll, rekh-1, left, right);
+                subTree[rl] = raiseTree(rl, rekh-1, left, right);
+            }
+            return subTree;
+        }
+      document.getElementById("result").innerHTML=(JSON.stringify(main()));
+	  document.title = JSON.stringify(main())
+    </script>
+	<p>&copy;2015-2016 Ерёменко Максим</p>
+</body>
+</html>

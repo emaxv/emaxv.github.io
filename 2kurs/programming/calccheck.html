@@ -1,0 +1,164 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Объектный калькулятор</title> 
+<meta charset="utf-8">
+<meta name="author" content="Maksim Eryomenko">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.js"></script>
+  <script>
+  mocha.setup('bdd');
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/2.0.0/chai.js"></script>
+  <script>
+  var assert = chai.assert;
+  </script>
+<link rel="import" href="../k2.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script>
+<script> 
+var Calculator = function() { 
+var operand1; 
+var operand2; 
+var operate; 
+this.getOperand1 = function() { 
+return operand1; 
+}; 
+this.getOperand2 = function() { 
+return operand2; 
+}; 
+this.getAction = function() { 
+return operate; 
+}; 
+this.setOperand1 = function(value) { 
+operand1 = value;  
+}; 
+
+this.setOperand2 = function(value) { 
+operand2 = value; 
+}; 
+this.setAction = function(value) { 
+operate = value; 
+}; 
+this.addition = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1+operand2); 
+}; 
+this.subtraction = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1-operand2); 
+}; 
+this.multiplication = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+return parseInt(operand1*operand2); 
+}; 
+this.division = function() { 
+operand1 = parseInt(operand1); 
+operand2 = parseInt(operand2); 
+if (operand2 === 0) { 
+return "На ноль делить нельзя!" 
+} else { 
+return operand1/operand2 
+}; 
+}; 
+this.operation = function() { 
+var act;
+switch (operate) { 
+case "+": act = this.addition(); 
+break; 
+case "-": act = this.subtraction(); 
+break; 
+case "*": act = this.multiplication(); 
+break; 
+  case "/": act = this.division(); 
+break; 
+}; 
+return act; 
+};  
+}; 
+var simpleCalc = new Calculator(); 
+function calculate(Oper1,Oper2,Act){ 
+simpleCalc.setOperand1(Oper1); 
+simpleCalc.setOperand2(Oper2); 
+simpleCalc.setAction(Act); 
+return simpleCalc.operation(); 
+}
+</script> 
+<script>
+    describe("Калькулятор (сложение, вычитание, умножение, деление)", function() {	  
+      describe ("Сложение (addition)", function() {        
+        it("Сложение двух положительных чисел 2 и 3", function() {
+          assert.equal(calculate(2,3, "+"), 5);
+        });     
+        it("Сложение положительного и отрицательного числа", function() {
+        	assert.equal(calculate(2, -4, "+"), -2);
+        });
+    	it("Сложение положительного и нуля", function() {
+        	assert.equal(calculate(2, 0, "+"), 2);
+        });         
+        it("Сложение двух нулевых значений ", function() {
+        	assert.equal(calculate(0, 0, "+"), 0);
+        });           
+	  });
+      describe ("Вычитание (subtraction)", function() {        
+        it("Вычитание двух положительных чисел 2 и 3", function() {
+          assert.equal(calculate(2,3, "-"), -1);
+        });        
+        it("Вычитание положительного и отрицательного числа", function() {
+        	assert.equal(calculate(2, -4, "-"), 6);
+        });
+    	it("Вычитание положительного и нуля", function() {
+        	assert.equal(calculate(2, 0, "-"), 2);
+        });            
+        it("Вычитание двух нулевых значений ", function() {
+        	assert.equal(calculate(0, 0, "-"), 0);
+        });    
+      });       
+      describe ("Произведение (multiplication)", function() {
+        it("Произведение двух нулевых значений ", function() {
+        	assert.equal(calculate(0, 0, "*"), 0);
+        });   
+        it("Произведение положительного и отрицательного ", function() {
+        	assert.equal(calculate(-2, 4, "*"), -8);
+        });
+        it("Произведение нулевого значения и одного ненулевого значения ", function() {
+        	assert.equal(calculate(0, 5, "*"), 0);
+        }); 
+        it("Произведение двух положительных значений", function() {
+        	assert.equal(calculate(5, 5, "*"), 25);
+        });               
+	  });
+       describe ("Деление (division)", function() {
+        it("Деление двух нулевых значений ", function() {
+          assert.equal(calculate(0, 0, "/"), 0);
+        }); 
+        it("Деление положительного и отрицательного ", function() {
+          assert.equal(calculate(-2, 4, "/"), -0.5);
+        });
+        it("Деление нулевого значения и одного ненулевого значения ", function() {
+          assert.equal(calculate(0, 5, "/"), 0);
+        });
+          it("Деление двух целых значение ", function() {
+            assert.equal(calculate(10, 5, "/"), 2);
+        });                
+	  });      
+    });
+  </script>
+  <div id="mocha"></div>
+<script>
+    mocha.run();
+  </script>
+  <p>&copy;2015-2016 Ерёменко Максим</p>
+</body> 
+</html>

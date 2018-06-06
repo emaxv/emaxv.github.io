@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta name="author" content="Eryomenko Maksim">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+ </head>
+ <body>
+    <script>
+      $(function(){
+        $("body").append( "<input type='text' class='form-control' placeholder= 'Введите URL' id=r >" ).append( "Протокол: <input class='form-control' id=pr >" ).append( "Домен: <input class='form-control' id=dom >" ).append( "Путь: <input class='form-control' id=put >" ).append( "Путь: <input class='form-control' id=f >" );
+       $("#r").on("keyup", function(){
+         var li=$("#r").val();
+         var reg = "([a-z]{0,5})://([^/]+)/(.*)/(.*)" ;
+         var razdel = li.match(reg);
+         document.querySelector("#pr").value=razdel[1];
+         document.querySelector("#dom").value=razdel[2];
+         document.querySelector("#put").value=razdel[3];
+         document.querySelector("#f").value=razdel[4];
+       });
+      });
+   </script>
+ </body>
+</html>

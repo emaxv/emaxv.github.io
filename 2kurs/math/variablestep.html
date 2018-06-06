@@ -1,0 +1,170 @@
+<!DOCTYPE=html>
+<html>
+  <head>
+  <title>Численные методы интегрирования</title> 
+  <meta name="author" content="Eryomenko Maksim">
+  <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="import" href="../k2_2.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script>
+    <div>
+      <button class= btn-danger id=lp >Метод левых чатсей</button>
+      <button class= btn-danger id=pp >Метод правых частей</button>
+      <button class= btn-danger id=tr >Метод трапеций</button> 
+      <button class= btn-danger id=par >Метод парабол</button>
+    </div>
+     <script>
+    $(function(){
+      $("body").append( "<input class='form-control' placeholder= 'Введите нижний предел интегрирования' id=np >" ).append("<input class='form-control' id='vp' placeholder= 'Введите верхний предел интегрирования' >").append( "<input class='form-control' placeholder= 'Введите количество разбиений' id=n >" ).append( "<input class='form-control' placeholder= 'Введите точность' id=e >" ).append( "Шаг: <input class='form-control' id=step >" ).append( "Ответ: <input class='form-control' id=ot >" );
+      $("#lp").on("click", function(){
+var a= Number(document.querySelector("#np").value);
+var b= Number(document.querySelector("#vp").value);
+var n= Number(document.querySelector("#n").value);
+var E= parseFloat(document.querySelector("#e").value);
+        var I=0;
+var h=(b-a)/n; 
+var x0=a;
+var g=0;
+var p=0;
+var hv=h;
+var hs=0;
+var hd=hv;
+var R=1;           
+             while (R>E){     
+               var s=0;
+               var x=x0;
+               g+=1;
+               console.log("g="+g);
+    while (x<=(b-hv)) {
+s+=x*x;
+x+=hv;   
+     p+=1;     
+    }     
+               console.log("p="+p);
+var I2=hv*s;
+hd=hv;
+hv=hv/2;
+hs=hv;
+R=Math.abs(I-I2); 
+I=I2;
+             }
+        document.querySelector("#step").value=hv+hv;
+        document.querySelector("#ot").value=I2.toFixed(5); 
+           });
+	
+	 $("#pp").on("click", function(){
+var a= Number(document.querySelector("#np").value);
+var b= Number(document.querySelector("#vp").value);
+var n= Number(document.querySelector("#n").value);
+var E= parseFloat(document.querySelector("#e").value);
+var c=0;
+var I=0;
+var h=(b-a)/n;
+var x0=a;
+var hv=h;
+var hs=h;
+var hd=hv;
+var R=1;
+var s=0;
+             while (R>E){  
+      
+               var x=x0+hs;              
+    while (x<=b) {  
+s+=x*x;
+x+=hd;     
+    }     
+var I2=hv*s;
+hd=hv; 
+hv=hv/2; 
+hs=hv;
+R=Math.abs(I-I2); 
+I=I2; 
+              }
+        document.querySelector("#step").value=hv+hv;
+        document.querySelector("#ot").value=I2.toFixed(5);        
+      });
+      $("#tr").on("click", function(){
+var a= Number(document.querySelector("#np").value);
+var b= Number(document.querySelector("#vp").value);
+var n= Number(document.querySelector("#n").value);
+var E= parseFloat(document.querySelector("#e").value);
+var I=0;
+var h=(b-a)/n;
+var x0=a;
+var hv=h;
+var hs=0;
+var hd=hv;
+var R=1;
+var y0=a*a;
+var yn=b*b;
+             var s=0;
+            while (R>E){  
+ 
+              var x=x0+hs;            
+    while (x<=(b-hd)) {
+s+=x*x;
+x+=hd;   
+          }     
+var I2=hv*(((y0+yn)/2)+s);
+hd=hv;
+hv=hv/2;
+hs=hv;
+R=Math.abs(I-I2); 
+I=I2;
+             }
+        document.querySelector("#step").value=hv+hv;
+        document.querySelector("#ot").value=I2.toFixed(5);
+           });
+
+      
+           $("#par").on("click", function(){
+var a= Number(document.querySelector("#np").value);
+var b= Number(document.querySelector("#vp").value);
+var E= parseFloat(document.querySelector("#e").value);
+var n= Number(document.querySelector("#n").value);
+var I=0;
+var h=(b-a)/n;
+var hv=h;
+var hs=0;
+var hd=hv;
+var x0=a; 
+var R=1;
+var y0=a*a; 
+var yn=b*b;
+        
+               var s1=0;
+               var s2=0;         
+             while (R>E){
+               var x1=x0+hs;	
+    while (x1<=(b-hd)) {
+s1+=x1*x1; 
+x1=x1+2*hd;      
+    }
+	var x2=x0+2*hs;  
+    while (x2<=(b-2*hd)) { 
+s2+=x2*x2; 
+x2=x2+2*hd;    
+    }   	
+var I2=(hv/3)*(y0+4*s1+2*s2+yn); 
+hd=hv; 
+hv=hv/2; 
+hs=hv;
+R=Math.abs(I-I2); 
+I=I2;
+             }  
+        document.querySelector("#step").value=hv+hv;
+        document.querySelector("#ot").value=I2.toFixed(5);
+           });
+    });
+	 
+       </script> 
+</body>
+</html>

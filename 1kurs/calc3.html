@@ -1,0 +1,101 @@
+<!Doctype html>
+<html>
+<head>
+<title>Калькулятор v3</title>
+<meta name="author" content="Eryomenko Maksim">
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="import" href="t.html">
+ </head>
+ <body style="background-color:#FFF8DC">
+    <script>
+      var link = document.querySelector('link[rel=import]');
+      var content = link.import.querySelector('#tst');
+      document.body.appendChild(content.cloneNode(true));
+    </script>
+<style>
+  #close{ 
+    width:100px;
+	height:40px;   
+  }
+  #dot {
+     width:303px;
+	height:60px;   
+    font:120% Times;
+  }
+  [name='Calculator']{
+    margin-top:50px;
+    border: 10px ridge green;
+    width:324px}
+  [size='200'] {
+    width:40px;
+	height:40px;   
+    font:120% Times;}
+  #answer
+  {
+    width: 303px;
+	height: 50px;       
+  }
+</style>
+      <form name="Calculator">
+        <td><input type="text" id="answer" name="answer"  value>  </td> 
+        <br>
+      <input type="button" name="sinus" size="200" value=" sin " onClick="document.Calculator.answer.value = Math.sin(document.Calculator.answer.value*Math.PI/180)">
+      <input type="button" name="cosinus" size="200" value="cos " onClick="document.Calculator.answer.value = Math.cos(document.Calculator.answer.value*Math.PI/180)">
+      <input type="button" name="tangens" size="200" value=" tan " onClick="document.Calculator.answer.value = Math.tan(document.Calculator.answer.value*Math.PI/180)">
+      <input type="button" name="seven" size="200" value="  7  " onClick="document.Calculator.answer.value += '7'">
+      <input type="button" name="eight" size="200" value="  8  " onClick="document.Calculator.answer.value += '8'">
+      <input type="button" name="nine" size="200" value="  9  " onClick="document.Calculator.answer.value += '9'">
+      <input type="button" name="division" size="200" value="  ÷  " onClick="document.Calculator.answer.value += '/'">
+        <br>
+      <input type="button" name="ln" size="200" value="  ln  " onClick="document.Calculator.answer.value = Math.log(document.Calculator.answer.value)">
+      <input type="button" name="squre" size="200" value=" ^2 " onClick="document.Calculator.answer.value = Math.pow(document.Calculator.answer.value, document.Calculator.answer.value)"> 
+      <input type="button" name="sqrt" size="200" value="  √  " onClick="document.Calculator.answer.value = Math.sqrt(document.Calculator.answer.value)">
+      <input type="button" name="four" size="200" value="  4  " onClick="document.Calculator.answer.value += '4'">
+      <input type="button" name="five" size="200" value="  5  " onClick="document.Calculator.answer.value += '5'">
+      <input type="button" name="six" size="200" value="  6  " onClick="document.Calculator.answer.value += '6'">
+      <input type="button" name="increase" size="200" value="  ×  " onClick="document.Calculator.answer.value += '*'">  
+        <br>
+      <input type="button" name="e" size="200" value="  e  " onClick="document.Calculator.answer.value += Math.E">
+      <input type="button" name="factorial" size="200" value="  !  " onClick="document.Calculator.answer.value = fac(document.Calculator.answer.value)">
+       <input value="^" type="button" size="200" href="#mini-modal-window" data-toggle="modal">
+  <div id="mini-modal-window" class="modal fade">
+   <div class="modal-dialog">
+    <div class="modal-content">
+ <div class="modal-body">
+  <input type="text" id="step" placeholder="Введите степень">
+ </div>
+ <div class="modal-footer">
+   <button type="button" id="close" data-dismiss="modal" onClick="document.Calculator.answer.value = Math.pow(document.Calculator.answer.value, document.Calculator.step.value) + (document.Calculator.step.value = '')" >Посчитать</button>
+ </div>
+    </div>
+   </div>
+  </div>
+      <input type="button" name="one" size="200" value="  1  " onClick="document.Calculator.answer.value += '1'">
+      <input type="button" name="two" size="200" value="  2  " onClick="document.Calculator.answer.value += '2'">
+      <input type="button" name="three" size="200" value="  3  " onClick="document.Calculator.answer.value += '3'">
+      <input type="button" name="minus" size="200" value="  -  " onClick="document.Calculator.answer.value += '-'">  
+        <br>
+      <input type="button" name="Pi" size="200" value="  Pi  " onClick="document.Calculator.answer.value += Math.PI">
+      <input type="button" name="open" size="200" value="  (  " onClick="document.Calculator.answer.value += '('">
+      <input type="button" name="close" size="200" value="  )  " onClick="document.Calculator.answer.value += ')'">  
+      <input type="button" name="reset" size="200" value="  C  " onClick="document.Calculator.answer.value = ''">
+      <input type="button" name="zero" size="200" value="  0  " onClick="document.Calculator.answer.value += '0'">
+      <input type="button" name="dot" size="200" value="  .  " onClick="document.Calculator.answer.value += '.'">
+      <input type="button" name="plus" size="200" value="  +  " onClick="document.Calculator.answer.value += '+'">  
+        <br>          
+      <input type="button" id="dot" name="equals" size="200" value="  =  " onClick="document.Calculator.answer.value = eval(document.Calculator.answer.value)">     
+        </form>
+<script> 
+        function fac(n){
+	    var res = 1;	     
+	    while(n--) 
+          res *= n + 1
+	    return res;
+	}
+    </script>
+<p>&copy;2015 Ерёменко Максим</p>
+</body>
+</html>
