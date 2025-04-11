@@ -1,0 +1,56 @@
+.btn {
+    padding: 7px 12px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: Times, "Times New Roman", serif;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #33a6cc;
+}
+.btn-primary:active, .btn-primary.active {
+    background: #007299;
+    box-shadow: none;
+}
+.btn-danger {
+    background: #DC143C;
+    color: #ffffff;
+}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+    background: #DC143C;
+}
+.btn-danger:active, .btn-danger.active {
+    background: #DC143C;
+    box-shadow: none;
+}
+.pull-right {
+  float: right;
+}
+.btn-lg.round {
+	border-radius: 24px;
+}
+.brd {
+    font-family: "URW Chancery L", cursive;
+    border: 4px double black; /* Параметры границы */
+    background: #FFFFE0; /* Цвет фона */
+    margin: 0 auto;
+    width: 520px;
+}
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 45px;
+    color: #000080;
+}
+a { 
+    text-decoration: none;
+    font-size: 12;
+} 
